@@ -36,7 +36,7 @@
             display: flex
             align-items: center
         &__content
-            height: 100px
+            height: 150px
             transition: 1s
         &__icon
             display: block
