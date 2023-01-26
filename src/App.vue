@@ -6,7 +6,7 @@
         <button>Sign up</button>
         <Accordion :titles="['avatar', 'personal', 'password']">
             <template #avatar><Avatar /></template>
-            <template #personal> BBB </template>
+            <template #personal><Personal /></template>
             <template #password> CCC </template>
         </Accordion>
     </Form>
@@ -17,6 +17,7 @@
     import { Field, Form, ErrorMessage, useField } from "vee-validate";
     import Accordion from "./components/Accordion.vue";
     import Avatar from "./components/Avatar.vue";
+    import Personal from "./components/Personal.vue";
 
     const count = ref(0);
     const name = ref("");
