@@ -17,7 +17,11 @@
                 <span>{{ "\u270E" }}</span>
                 <div class="avatar__popup">Редактировать аватар</div>
             </div>
-            <div class="avatar__delete" @click="imageSrc = ''">
+            <div class="avatar__undo" @click="imageSrc = defaultSrc" :hidden="clean">
+                <span>{{ "\u238C" }}</span>
+                <div class="avatar__popup">Вернуть аватар</div>
+            </div>
+            <div class="avatar__delete" @click="imageSrc = defaultSrc">
                 <span>{{ "\u2A2F" }}</span>
                 <div class="avatar__popup">Удалить аватар</div>
             </div>
@@ -29,6 +33,9 @@
     import { ref, onMounted } from "vue";
     const files = ref<HTMLElement | null>(null);
     const imageSrc = ref("https://100k-faces.glitch.me/random-image");
+    const defaultSrc = imageSrc.value;
+    const clean = ref(true);
+
     const doEdit = () => {
         console.log("click");
         !!files.value && files.value.click();
@@ -40,6 +47,7 @@
         });
         const targetFiles = (target as HTMLInputElement).files || [];
         !!targetFiles && fileReader.readAsDataURL(targetFiles[0]);
+        clean.value = false;
     };
 </script>
 
