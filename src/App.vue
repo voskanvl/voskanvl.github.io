@@ -17,7 +17,7 @@
     import { Field, Form, ErrorMessage, useField } from "vee-validate";
     import Accordion from "./components/Accordion.vue";
     import Avatar from "./components/Avatar.vue";
-    import Personal from "./components/Personal.vue";
+    import Personal from "./components/Personal/Personal.vue";
 
     const count = ref(0);
     const name = ref("");

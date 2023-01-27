@@ -8,17 +8,21 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, watch } from "vue";
-    import { useField } from "vee-validate";
-    import { string } from "yup";
+    import { ref } from "vue";
+    import { RuleExpression, useField } from "vee-validate";
+    import { StringSchema } from "yup";
 
     const props = defineProps<{
         placeholder?: string;
         fieldname: string;
         type?: string;
+        validator: unknown;
     }>();
 
-    const { value, errorMessage } = useField(props.fieldname, string().min(2).required());
+    const { value, errorMessage } = useField(
+        props.fieldname,
+        props.validator as RuleExpression<unknown>,
+    );
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
