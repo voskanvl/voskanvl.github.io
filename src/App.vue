@@ -1,9 +1,9 @@
 <template>
     <Form @submit="onSubmit">
-        <Field name="email" type="email" v-model="value" @click="name += '---'" />
+        <!-- <Field name="email" type="email" v-model="value" @click="name += '---'" />
         <ErrorMessage name="email" />
         <div>{{ name }} {{ value }} {{ errorMessage }}</div>
-        <button>Sign up</button>
+        <button>Sign up</button> -->
         <Accordion :titles="['avatar', 'personal', 'password']">
             <template #avatar><Avatar /></template>
             <template #personal><Personal /></template>

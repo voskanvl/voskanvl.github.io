@@ -5,6 +5,7 @@
             :placeholder="p.placeholder"
             :fieldname="p.fieldname"
             :validator="p.validator"
+            :type="p.type"
             :key="p.id"
         />
     </form>

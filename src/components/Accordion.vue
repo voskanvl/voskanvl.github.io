@@ -36,7 +36,7 @@
             display: flex
             align-items: center
         &__content
-            height: 150px
+            max-height: 50vh
             transition: 1s
         &__icon
             display: block
@@ -52,5 +52,5 @@
                 rotate: 0deg
             & .accordion__content
                 overflow: hidden
-                height: 0
+                max-height: 0
 </style>

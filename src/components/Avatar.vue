@@ -63,7 +63,7 @@
         &__image
             overflow: hidden
             border-radius: 50%
-            height: 80%
+            height: 15vmin
             margin: 0 auto
             aspect-ratio: 1
             & > img

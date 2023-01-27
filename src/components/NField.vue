@@ -1,6 +1,12 @@
 <template>
     <div class="field">
-        <input class="field__name" :type="props.type" :placeholder="placeholder" v-model="value" />
+        <input
+            class="field__name"
+            :type="props.type"
+            :placeholder="placeholder"
+            v-model="value"
+            :required="props.requried"
+        />
         <span :class="{ 'field__error': true, 'field__error--deactive': !!errorMessage }">{{
             errorMessage
         }}</span>
@@ -10,18 +16,42 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { RuleExpression, useField } from "vee-validate";
-    import { StringSchema } from "yup";
+    import { AnySchema } from "yup";
 
     const props = defineProps<{
         placeholder?: string;
         fieldname: string;
-        type?: string;
-        validator: unknown;
+        type:
+            | "button"
+            | "checkbox"
+            | "color"
+            | "date"
+            | "datetime-local"
+            | "email"
+            | "file"
+            | "hidden"
+            | "image"
+            | "month"
+            | "number"
+            | "password"
+            | "radio"
+            | "range"
+            | "reset"
+            | "search"
+            | "submit"
+            | "tel"
+            | "text"
+            | "time"
+            | "url"
+            | "week";
+        validator: AnySchema;
+        requried?: boolean;
     }>();
 
     const { value, errorMessage } = useField(
         props.fieldname,
-        props.validator as RuleExpression<unknown>,
+        props.validator as AnySchema,
+        // props.validator as RuleExpression<unknown>,
     );
 </script>
 
