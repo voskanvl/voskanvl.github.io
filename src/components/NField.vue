@@ -72,10 +72,14 @@
             outline: none
             font-family: Montserrat
             font-size: 18px
+            @media (prefers-color-scheme: dark)
+                border-bottom: 1px solid #fff5
 
             &:focus
                 border-bottom: 2px solid #000
                 font-weight: 500
+                @media (prefers-color-scheme: dark)
+                    border-bottom: 2px solid #fff5
 
         &__error
             display: inline-block
