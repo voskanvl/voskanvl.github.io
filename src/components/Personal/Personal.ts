@@ -60,6 +60,7 @@ const personalSchemaForm: personalSchema[] = [
             "is-city",
             d => `Не получается найти "${d.value}", как город`,
             async value => {
+                if (!value) return false;
                 const res = await fetch(
                     `https://nominatim.openstreetmap.org/search?city=${value}&format=json`,
                 );
@@ -69,9 +70,12 @@ const personalSchemaForm: personalSchema[] = [
                     const countries = data.map((e: { display_name: string }) =>
                         e.display_name.split(",").at(-1),
                     );
-                    const faCountries = countries.reduce((acc, e) => {
-                        return acc[e] ? { ...acc, [e]: acc[e] + 1 } : { ...acc, [e]: 1 };
-                    }, {});
+                    const faCountries = countries.reduce(
+                        (acc: { [key: string]: string }, e: string) => {
+                            return acc[e] ? { ...acc, [e]: acc[e] + 1 } : { ...acc, [e]: 1 };
+                        },
+                        {},
+                    );
                     console.log("🚀 ~ faCountries", faCountries);
                     return true;
                 }

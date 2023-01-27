@@ -2,6 +2,7 @@
     <div class="field">
         <input
             class="field__name"
+            ref="inputEl"
             :type="props.type"
             :placeholder="placeholder"
             v-model="value"
@@ -14,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from "vue";
-    import { RuleExpression, useField } from "vee-validate";
+    import { onMounted, ref } from "vue";
+    import { useField } from "vee-validate";
     import { AnySchema } from "yup";
 
     const props = defineProps<{
@@ -48,6 +49,10 @@
         requried?: boolean;
     }>();
 
+    const inputEl = ref(null);
+
+    defineExpose({ inputEl });
+
     const { value, errorMessage } = useField(
         props.fieldname,
         props.validator as AnySchema,
@@ -63,7 +68,7 @@
             width: 100%
             padding: .5em 1em
             border: none
-            border-bottom: 1px solid #0007
+            border-bottom: 1px solid #0005
             outline: none
             font-family: Montserrat
             font-size: 18px
