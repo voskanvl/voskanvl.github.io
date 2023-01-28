@@ -65,7 +65,7 @@
             overflow: hidden
             border-radius: 50%
             height: 20vmin
-            margin: 0 auto
+            margin: 1em auto 0
             aspect-ratio: 1
             +bs()
             & > img

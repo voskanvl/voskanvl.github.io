@@ -1,5 +1,5 @@
 <template>
-    <n-form class="password">
+    <form class="password">
         <div class="password__title">Ваш текущий пароль: <strong>GHDiU-UI&gh5</strong></div>
         <n-field
             fieldname="pass"
@@ -16,14 +16,14 @@
             placeholder="Повторите новый пароль"
             autocomplete="password"
         />
-    </n-form>
+        <input type="submit" value="Отправить" />
+    </form>
 </template>
 
 <script setup lang="ts">
     import { ref } from "vue";
     import passwordSchemaForm from "./Password";
     import NField from "../NField.vue";
-    import NForm from "../NForm.vue";
     import * as yup from "yup";
     import YupPassword from "yup-password";
     YupPassword(yup);

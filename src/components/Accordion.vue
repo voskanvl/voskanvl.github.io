@@ -36,8 +36,12 @@
             display: flex
             align-items: center
         &__content
+            overflow: hidden
             max-height: 60vh
             transition: 1s
+            background-color: #fff
+            @media (prefers-color-scheme: dark)
+                background-color: #242424
         &__icon
             display: block
             width: 1em
@@ -51,6 +55,6 @@
             & .accordion__icon
                 rotate: 0deg
             & .accordion__content
-                overflow: hidden
-                max-height: 0
+                // overflow: hidden
+                max-height: 0vh
 </style>
