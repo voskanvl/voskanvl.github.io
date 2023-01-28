@@ -53,19 +53,21 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="sass">
+    =bs($shift:4px,$blur:12px)
+        box-shadow: (-$shift) (-$shift) $blur #fff7, $shift $shift $blur #0007
+
     .avatar
         user-select: none
-        aspect-ratio: 1
-        height: 100%
         margin: 0 auto
-        // width: 100%
         position: relative
+        margin-bottom: 1em
         &__image
             overflow: hidden
             border-radius: 50%
-            height: 15vmin
+            height: 20vmin
             margin: 0 auto
             aspect-ratio: 1
+            +bs()
             & > img
                 // width: 100%
                 aspect-ratio: 1
@@ -75,6 +77,8 @@
             display: flex
             justify-content: space-around
             font-size: 30px
+            width: 25vw
+            margin: 0 auto
             & > *
                 cursor: pointer
                 position: relative
@@ -86,6 +90,8 @@
             color: #f70
         &__edit
             color: #33a
+            @media (prefers-color-scheme: dark)
+                color: #77f
         &__popup
             opacity: 0
             position: absolute
@@ -98,4 +104,6 @@
             padding: 1em
             font-size: 14px
             z-index: -1
+            @media (prefers-color-scheme: dark)
+                background-color: #242424dd
 </style>

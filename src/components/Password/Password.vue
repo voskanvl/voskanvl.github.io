@@ -1,15 +1,29 @@
 <template>
-    <form class="personal">
-        <div>Ваш текущий пароль: <strong>GHDiU-UI&gh5</strong></div>
-        <n-field fieldname="pass" :validator="passValidator" type="password" ref="passEl" />
-        <n-field fieldname="repeatpass" :validator="repeatPassValidator" type="password" />
-    </form>
+    <n-form class="password">
+        <div class="password__title">Ваш текущий пароль: <strong>GHDiU-UI&gh5</strong></div>
+        <n-field
+            fieldname="pass"
+            :validator="passValidator"
+            type="password"
+            ref="passEl"
+            placeholder="Введите новый пароль"
+            autocomplete="password"
+        />
+        <n-field
+            fieldname="repeatpass"
+            :validator="repeatPassValidator"
+            type="password"
+            placeholder="Повторите новый пароль"
+            autocomplete="password"
+        />
+    </n-form>
 </template>
 
 <script setup lang="ts">
     import { ref } from "vue";
     import passwordSchemaForm from "./Password";
     import NField from "../NField.vue";
+    import NForm from "../NForm.vue";
     import * as yup from "yup";
     import YupPassword from "yup-password";
     YupPassword(yup);
@@ -40,4 +54,8 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scope lang="sass"></style>
+<style scope lang="sass">
+    .password
+        &__title
+            margin-bottom: 1em
+</style>

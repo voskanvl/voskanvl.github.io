@@ -1,5 +1,5 @@
 <template>
-    <form class="personal">
+    <n-form class="personal">
         <n-field
             v-for="p in Personal"
             :placeholder="p.placeholder"
@@ -26,12 +26,13 @@
             </select>
             <input name="phone" class="phone-field__phone" v-mask v-model="phone" />
         </div>
-    </form>
+    </n-form>
 </template>
 
 <script setup lang="ts">
     import { onMounted, ref, reactive, Ref } from "vue";
     import NField from "../NField.vue";
+    import NForm from "../NForm.vue";
     import * as yup from "yup";
     import "yup-phone";
     import Personal from "./Personal";

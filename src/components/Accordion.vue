@@ -36,7 +36,7 @@
             display: flex
             align-items: center
         &__content
-            max-height: 50vh
+            max-height: 60vh
             transition: 1s
         &__icon
             display: block

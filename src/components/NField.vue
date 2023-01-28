@@ -7,6 +7,7 @@
             :placeholder="placeholder"
             v-model="value"
             :required="props.requried"
+            :autocomplete="props.autocomplete"
         />
         <span :class="{ 'field__error': true, 'field__error--deactive': !!errorMessage }">{{
             errorMessage
@@ -47,6 +48,7 @@
             | "week";
         validator: AnySchema;
         requried?: boolean;
+        autocomplete?: string;
     }>();
 
     const inputEl = ref(null);
@@ -68,24 +70,24 @@
             width: 100%
             padding: .5em 1em
             border: none
-            border-bottom: 1px solid #0005
+            border-bottom: 2px solid #0004
             outline: none
             font-family: Montserrat
             font-size: 18px
             @media (prefers-color-scheme: dark)
-                border-bottom: 1px solid #fff5
+                border-bottom: 2px solid #fff4
 
             &:focus
                 border-bottom: 2px solid #000
                 font-weight: 500
                 @media (prefers-color-scheme: dark)
-                    border-bottom: 2px solid #fff5
+                    border-bottom: 2px solid #fff9
 
         &__error
             display: inline-block
             color: #f70
             transition: height .5s
-            height: 0
+            height: 2.5em
             overflow: hidden
             &--deactive
                 height: 2.5em
