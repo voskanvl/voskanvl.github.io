@@ -7,7 +7,7 @@
         <Accordion :titles="['avatar', 'personal', 'password']">
             <template #avatar><Avatar /></template>
             <template #personal><Personal /></template>
-            <template #password> CCC </template>
+            <template #password><Password /></template>
         </Accordion>
     </Form>
 </template>
@@ -18,6 +18,7 @@
     import Accordion from "./components/Accordion.vue";
     import Avatar from "./components/Avatar.vue";
     import Personal from "./components/Personal/Personal.vue";
+    import Password from "./components/Password/Password.vue";
 
     const count = ref(0);
     const name = ref("");
