@@ -6,6 +6,7 @@ interface passwordSchema {
     id: number;
     fieldname: string;
     validator: yup.AnySchema;
+    value: string;
 }
 const passwordSchemaForm: passwordSchema[] = [
     {
@@ -20,11 +21,13 @@ const passwordSchemaForm: passwordSchema[] = [
             .minNumbers(1, "пароль должен содержать не менее одной цифры")
             .minSymbols(1, "пароль должен содержать не менее одного символа (!@#$%^ ... итд)")
             .required("Это поле обязательно для заполнения"),
+        value: "",
     },
     {
         id: 2,
         fieldname: "password-to-check",
         validator: yup.string().required("повторите введенный пароль"),
+        value: "",
     },
 ];
 

@@ -33,7 +33,7 @@
                 caption="Удалить аватар"
             />
         </div>
-        <input type="submit" value="Сохранить" @click="save" />
+        <input type="submit" value="Сохранить" @click="save" :class="{ send: isSend }" />
     </div>
 </template>
 
@@ -46,6 +46,7 @@
     const currentSrc = localStorage.getItem("img") || defaultSrc;
     const imageSrc = ref(currentSrc);
     const clean = ref(true);
+    const isSend = ref(false);
 
     const doEdit = () => {
         !!files.value && files.value.click();
@@ -76,6 +77,7 @@
 
     const save = () => {
         localStorage.setItem("img", imageSrc.value);
+        isSend.value = true;
     };
 </script>
 
@@ -102,8 +104,8 @@
                 height: 100%
                 object-fit: cover
         &__controls
-            display: flex
-            justify-content: space-between
+            display: grid
+            grid-template-columns: repeat(3,33%)
             font-size: 30px
             width: 25vw
             margin: 0 auto
@@ -133,6 +135,10 @@
                 background-color: #242424dd
 
         &__undo
+            overflow: hidden
             &[hidden]
-                display: none
+                width: 0
+
+    .send
+        color: #7f7
 </style>

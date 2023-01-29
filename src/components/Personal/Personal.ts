@@ -1,33 +1,37 @@
 import { AnySchema, string, date } from "yup";
 import phone from "phone";
+
+export type InputTypes =
+    | "button"
+    | "checkbox"
+    | "color"
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "file"
+    | "hidden"
+    | "image"
+    | "month"
+    | "number"
+    | "password"
+    | "radio"
+    | "range"
+    | "reset"
+    | "search"
+    | "submit"
+    | "tel"
+    | "text"
+    | "time"
+    | "url"
+    | "week";
+
 interface personalSchema {
     id: number;
     fieldname: string;
-    type:
-        | "button"
-        | "checkbox"
-        | "color"
-        | "date"
-        | "datetime-local"
-        | "email"
-        | "file"
-        | "hidden"
-        | "image"
-        | "month"
-        | "number"
-        | "password"
-        | "radio"
-        | "range"
-        | "reset"
-        | "search"
-        | "submit"
-        | "tel"
-        | "text"
-        | "time"
-        | "url"
-        | "week";
+    type: InputTypes;
     validator: AnySchema;
     placeholder?: string;
+    value: string;
 }
 const personalSchemaForm: personalSchema[] = [
     {
@@ -38,12 +42,14 @@ const personalSchemaForm: personalSchema[] = [
             .min(2, "количество символов должно быть не меньше 2 символов")
             .required("Это поле обязательно для заполнения"),
         placeholder: "Имя",
+        value: "",
     },
     {
         id: 2,
         fieldname: "birth",
         type: "date",
         validator: date(),
+        value: "",
     },
     {
         id: 3,
@@ -51,6 +57,7 @@ const personalSchemaForm: personalSchema[] = [
         type: "email",
         validator: string().email("здесь должен быть корректный email").required(),
         placeholder: "Введите email",
+        value: "",
     },
     {
         id: 4,
@@ -83,6 +90,7 @@ const personalSchemaForm: personalSchema[] = [
             },
         ),
         placeholder: "Ваш город",
+        value: "",
     },
 ];
 

@@ -8,6 +8,7 @@
             ref="passEl"
             placeholder="Введите новый пароль"
             autocomplete="password"
+            value=""
         />
         <n-field
             fieldname="repeatpass"
@@ -15,6 +16,7 @@
             type="password"
             placeholder="Повторите новый пароль"
             autocomplete="password"
+            value=""
         />
         <input type="submit" value="Отправить" />
     </form>

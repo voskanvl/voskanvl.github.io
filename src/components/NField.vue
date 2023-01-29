@@ -3,11 +3,13 @@
         <input
             class="field__name"
             ref="inputEl"
+            :name="props.fieldname"
             :type="props.type"
-            :placeholder="placeholder"
-            v-model="value"
+            :placeholder="props.placeholder"
+            :value="props.value"
             :required="props.requried"
             :autocomplete="props.autocomplete"
+            @input="refresh"
         />
         <span :class="{ 'field__error': true, 'field__error--deactive': !!errorMessage }">{{
             errorMessage
@@ -16,53 +18,40 @@
 </template>
 
 <script setup lang="ts">
-    import { onMounted, ref } from "vue";
+    import { ref, toRef } from "vue";
     import { useField } from "vee-validate";
     import { AnySchema } from "yup";
+    import { InputTypes } from "./Personal/Personal";
 
     const props = defineProps<{
         placeholder?: string;
         fieldname: string;
-        type:
-            | "button"
-            | "checkbox"
-            | "color"
-            | "date"
-            | "datetime-local"
-            | "email"
-            | "file"
-            | "hidden"
-            | "image"
-            | "month"
-            | "number"
-            | "password"
-            | "radio"
-            | "range"
-            | "reset"
-            | "search"
-            | "submit"
-            | "tel"
-            | "text"
-            | "time"
-            | "url"
-            | "week";
+        type: InputTypes;
         validator: AnySchema;
         requried?: boolean;
         autocomplete?: string;
+        value: string;
     }>();
 
     const inputEl = ref(null);
 
     defineExpose({ inputEl });
 
-    const { value, errorMessage } = useField(
-        props.fieldname,
+    const emits = defineEmits(["update:value"]);
+
+    const fieldnameRef = toRef(props, "fieldname");
+
+    const { value, errorMessage, resetField } = useField(
+        fieldnameRef,
         props.validator as AnySchema,
         // props.validator as RuleExpression<unknown>,
     );
+
+    const refresh = (event: Event) => {
+        emits("update:value", (event.target as HTMLInputElement).value);
+    };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="sass">
     .field
 
