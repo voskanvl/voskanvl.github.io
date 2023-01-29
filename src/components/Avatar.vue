@@ -13,41 +13,69 @@
                 accept="image/*"
                 @change="changeAvatar"
             />
-            <div class="avatar__edit" @click="doEdit">
-                <span>{{ "\u270E" }}</span>
-                <div class="avatar__popup">Редактировать аватар</div>
-            </div>
-            <div class="avatar__undo" @click="imageSrc = defaultSrc" :hidden="clean">
-                <span>{{ "\u238C" }}</span>
-                <div class="avatar__popup">Вернуть аватар</div>
-            </div>
-            <div class="avatar__delete" @click="imageSrc = defaultSrc">
-                <span>{{ "\u2A2F" }}</span>
-                <div class="avatar__popup">Удалить аватар</div>
-            </div>
+            <icon-with-popup
+                class="avatar__edit"
+                @click="doEdit"
+                :icon="'\u270E'"
+                caption="Редактировать аватар"
+            />
+            <icon-with-popup
+                class="avatar__undo"
+                @click="doReturn"
+                :hidden="clean"
+                :icon="'\u238C'"
+                caption="Вернуть аватар"
+            />
+            <icon-with-popup
+                class="avatar__delete"
+                @click="doClear"
+                :icon="'\u2A2F'"
+                caption="Удалить аватар"
+            />
         </div>
+        <input type="submit" value="Сохранить" @click="save" />
     </div>
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted } from "vue";
-    const files = ref<HTMLElement | null>(null);
-    const imageSrc = ref("https://100k-faces.glitch.me/random-image");
-    const defaultSrc = imageSrc.value;
+    import { ref } from "vue";
+    import iconWithPopup from "./iconWithPopup.vue";
+    import defaultSrc from "../assets/1_W35QUSvGpcLuxPo3SRTH4w.webp";
+
+    const files = ref<HTMLInputElement | null>(null);
+    const currentSrc = localStorage.getItem("img") || defaultSrc;
+    const imageSrc = ref(currentSrc);
     const clean = ref(true);
 
     const doEdit = () => {
-        console.log("click");
         !!files.value && files.value.click();
     };
+
+    const doClear = () => {
+        imageSrc.value = defaultSrc;
+        clean.value = true;
+        !!files.value && (files.value.files = null);
+    };
+
+    const doReturn = () => {
+        imageSrc.value = currentSrc;
+        clean.value = true;
+    };
+
     const changeAvatar = ({ target }: Event) => {
+        console.log("change Avatar");
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
+            console.log("change target", (target as HTMLInputElement).value);
             imageSrc.value = <string>fileReader.result;
         });
         const targetFiles = (target as HTMLInputElement).files || [];
         !!targetFiles && fileReader.readAsDataURL(targetFiles[0]);
         clean.value = false;
+    };
+
+    const save = () => {
+        localStorage.setItem("img", imageSrc.value);
     };
 </script>
 
@@ -60,7 +88,7 @@
         user-select: none
         margin: 0 auto
         position: relative
-        margin-bottom: 1em
+        margin-bottom: 4em
         &__image
             overflow: hidden
             border-radius: 50%
@@ -75,16 +103,13 @@
                 object-fit: cover
         &__controls
             display: flex
-            justify-content: space-around
+            justify-content: space-between
             font-size: 30px
             width: 25vw
             margin: 0 auto
             & > *
-                cursor: pointer
-                position: relative
-                & > span:hover + .avatar__popup
-                    opacity: 1
-                    z-index: 1
+                flex: 0 0 50%
+
 
         &__delete
             color: #f70
@@ -95,7 +120,7 @@
         &__popup
             opacity: 0
             position: absolute
-            translate: -50% 0
+            translate: -50% -0%
             transition: opacity 1s
             z-index: 1
             background: #fffd
@@ -106,4 +131,8 @@
             z-index: -1
             @media (prefers-color-scheme: dark)
                 background-color: #242424dd
+
+        &__undo
+            &[hidden]
+                display: none
 </style>

@@ -2,17 +2,17 @@
     <div
         class="accordion"
         v-for="(title, idx) in props.titles"
-        :key="title"
+        :key="title.name"
         :data-id="idx"
         @click="currentTab = idx"
         :data-hidden="idx !== currentTab"
     >
         <div class="accordion__title">
-            <span>{{ title }}</span
+            <span>{{ title.title }}</span
             ><i class="accordion__icon">{{ "\u25BC" }}</i>
         </div>
         <div class="accordion__content">
-            <slot :name="title" :data-idx="idx"></slot>
+            <slot :name="title.name" :data-idx="idx"></slot>
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@
 <script setup lang="ts">
     import { ref } from "vue";
     const props = defineProps<{
-        titles: string[];
+        titles: { name: string; title: string }[];
     }>();
     let currentTab = ref(0);
 </script>
