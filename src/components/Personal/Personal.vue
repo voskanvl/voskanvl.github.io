@@ -81,4 +81,9 @@ const save = async () => {
 };
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+.personal
+    display: flex
+    flex-direction: column
+    row-gap: 1em
+</style>

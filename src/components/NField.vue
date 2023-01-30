@@ -49,9 +49,9 @@ const { value: inputValue, errorMessage, resetField } = useField(
 
 <style scoped lang="sass">
 .field
-
+    width: 100%
     input
-        width: 100%
+        width: 95%
         padding: .5em 1em
         border: none
         border-bottom: 2px solid #0004
