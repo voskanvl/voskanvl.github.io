@@ -31,7 +31,6 @@ const props = defineProps<{
   autocomplete?: string;
   value: string;
 }>();
-s;
 
 const inputEl = ref(null);
 
