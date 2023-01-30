@@ -1,7 +1,7 @@
 <template>
     <form class="personal" ref="formEl">
         <n-field
-            v-for="p in Personal"
+            v-for="p in personalRef"
             :placeholder="p.placeholder"
             :fieldname="p.fieldname"
             :name="p.fieldname"
@@ -11,31 +11,36 @@
             :value="p.value"
         />
         <phone-field :country-list="countryList" />
-        <input type="submit" value="Отправить" @click.prevent="save" />
+        <input type="submit" value="Отправить" @click.prevent="save" :class="{ green: isOk }" />
     </form>
 </template>
 
 <script setup lang="ts">
-    import { onMounted, ref, reactive, Ref } from 'vue';
-    import NField from '../NField.vue';
-    import * as yup from 'yup';
-    import 'yup-phone';
-    import Personal from './Personal';
-    import countryList from '../../../countryCode.js';
-    import IMask from 'imask';
-    import { useField, useForm } from 'vee-validate';
-    import personalSchemaForm from './Personal';
-    import PhoneField from '../PhoneField.vue';
+    import { onMounted, ref, reactive } from "vue";
+    import NField from "../NField.vue";
+    import * as yup from "yup";
+    import "yup-phone";
+    import Personal from "./Personal";
+    import countryList from "../../../countryCode.js";
+    import IMask from "imask";
+    import { useField, useForm } from "vee-validate";
+    import personalSchemaForm from "./Personal";
+    import PhoneField from "../PhoneField.vue";
 
     const formEl = ref<HTMLFormElement | null>(null);
 
+    const personalRef = reactive(Personal);
+
+    const isOk = ref(false);
+
     onMounted(() => {
-        const data = localStorage.getItem('personal');
+        const data = localStorage.getItem("personal");
         if (!data) return;
         const dataParsed = JSON.parse(data);
-        Personal.forEach(e => {
+        personalRef.forEach(e => {
             !!dataParsed[e.fieldname] && (e.value = dataParsed![e.fieldname]);
         });
+        console.log("🚀 ~ personalRef", personalRef);
     });
 
     // const phone = ref("");
@@ -56,25 +61,19 @@
     validationSchema.phone = yup
         .string()
         .test(
-            'phone-test',
-            'Номер телефона - обязательное поле',
-            val => !!val && !val?.includes('_'),
+            "phone-test",
+            "Номер телефона - обязательное поле",
+            val => !!val && !val?.includes("_"),
         );
 
     const { handleSubmit } = useForm({
         validationSchema,
     });
     const save = async () => {
-        function onInvalidSubmit<InvalidSubmissionHandler>({ values, errors, results }) {
-            console.log('values', values); // current form values
-            console.log('errors', errors); // a map of field names and their first error message
-            console.log('results', results); // a detailed map of field names and their validation results
-        }
-
         await handleSubmit(values => {
-            console.log('🚀 ~ values', values);
-            localStorage.setItem('personal', JSON.stringify(values));
-        }, onInvalidSubmit)();
+            localStorage.setItem("personal", JSON.stringify(values));
+            isOk.value = true;
+        })();
     };
 </script>
 
@@ -83,4 +82,6 @@
         display: flex
         flex-direction: column
         row-gap: 1em
+    .green
+        color: #7f0
 </style>

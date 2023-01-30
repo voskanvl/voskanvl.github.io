@@ -1,6 +1,8 @@
 <template>
-    <form class="password">
-        <div class="password__title">Ваш текущий пароль: <strong>GHDiU-UI&gh5</strong></div>
+    <form class="password" @submit="save">
+        <div class="password__title">
+            Ваш текущий пароль: <strong>{{ currentPass }}</strong>
+        </div>
         <n-field
             fieldname="pass"
             :validator="passValidator"
@@ -18,17 +20,22 @@
             autocomplete="password"
             value=""
         />
-        <input type="submit" value="Отправить" />
+        <input type="submit" value="Отправить" :class="{ green: isOk }" @click.prevent="save" />
     </form>
 </template>
 
 <script setup lang="ts">
-    import { ref } from "vue";
+    import { onMounted, ref } from "vue";
     import passwordSchemaForm from "./Password";
     import NField from "../NField.vue";
     import * as yup from "yup";
     import YupPassword from "yup-password";
+    import { useForm } from "vee-validate";
     YupPassword(yup);
+
+    const randomPass = () => "GHDiU-UI&gh5";
+    const isOk = ref(false);
+    const currentPass = ref(randomPass());
 
     const passEl = ref();
 
@@ -53,6 +60,25 @@
             );
             return value === passEl.value.inputEl.value;
         });
+
+    const { handleSubmit } = useForm({
+        validationSchema: {
+            pass: passValidator,
+            repeatpass: repeatPassValidator,
+        },
+    });
+    const save = async () => {
+        await handleSubmit(values => {
+            localStorage.setItem("pass", JSON.stringify(values.pass));
+            isOk.value = true;
+        })();
+    };
+
+    onMounted(() => {
+        const localPass = localStorage.getItem("pass");
+        if (!localPass) return;
+        currentPass.value = JSON.parse(localPass);
+    });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -60,4 +86,6 @@
     .password
         &__title
             margin-bottom: 1em
+    .green
+        color: #7f0
 </style>
