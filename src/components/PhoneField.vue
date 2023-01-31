@@ -20,7 +20,7 @@
             class="phone-field__phone"
             v-mask
             v-model="phone"
-            @input="emits('update:modelValue', $event.target.value)"
+            @input="handleInput"
         />
         <span :class="{ 'field__error': true, 'field__error--deactive': !!errorMessage }">{{
             errorMessage
@@ -75,12 +75,9 @@
             ),
     );
 
-    // onMounted(() => {
-    //     phone.value = props.modelValue;
-    // });
-    // onUpdated(() => {
-    //     phone.value = props.modelValue;
-    // });
+    const handleInput = (event: Event) => {
+        emits("update:modelValue", (event.target as HTMLInputElement).value);
+    };
 </script>
 
 <style scoped lang="sass">

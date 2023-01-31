@@ -71,6 +71,7 @@
         await handleSubmit(values => {
             localStorage.setItem("pass", JSON.stringify(values.pass));
             isOk.value = true;
+            currentPass.value = values.pass;
         })();
     };
 

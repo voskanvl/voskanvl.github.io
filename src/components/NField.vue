@@ -48,11 +48,7 @@
         errorMessage,
         resetField,
         setValue,
-    } = useField(
-        fieldnameRef,
-        props.validator as AnySchema,
-        // props.validator as RuleExpression<unknown>,
-    );
+    } = useField(fieldnameRef, props.validator);
     onMounted(() => {
         inputValue.value = props.value;
     });

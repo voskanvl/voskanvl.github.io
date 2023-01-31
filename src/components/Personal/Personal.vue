@@ -5,7 +5,7 @@
             :placeholder="p.placeholder"
             :fieldname="p.fieldname"
             :name="p.fieldname"
-            :validator="p.validator"
+            :validator="(p.validator as AnySchema)"
             :type="p.type"
             :key="p.id"
             :value="p.value"
@@ -26,6 +26,7 @@
     import { useField, useForm } from "vee-validate";
     import personalSchemaForm from "./Personal";
     import PhoneField from "../PhoneField.vue";
+    import { AnySchema } from "yup";
 
     const formEl = ref<HTMLFormElement | null>(null);
 

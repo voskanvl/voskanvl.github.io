@@ -1,5 +1,4 @@
 import { AnySchema, string, date } from "yup";
-import phone from "phone";
 
 export type InputTypes =
     | "button"
